@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.provider.Settings;
 
 import java.io.File;
 
@@ -77,6 +78,21 @@ public class apps extends ParamCommand {
             public String exec(ExecutePack pack) {
                 AppsManager.LaunchInfo i = pack.getLaunchInfo();
                 ((MainPack) pack).appsManager.hideActivity(i);
+                return null;
+            }
+        },
+        set_laucher_default {
+            @Override
+            public int[] args() {
+                // Sem argumentos: só abre o ecrã de seleção do launcher
+                return new int[0];
+            }
+
+            @Override
+            public String exec(ExecutePack pack) {
+                Intent intent = new Intent(Settings.ACTION_HOME_SETTINGS);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                pack.context.startActivity(intent);
                 return null;
             }
         },
