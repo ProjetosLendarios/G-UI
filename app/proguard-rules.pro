@@ -1,26 +1,21 @@
--keep public class ohi.andre.consolelauncher.commands.main.raw.* { public *; }
--keep public abstract class ohi.andre.consolelauncher.commands.main.generals.* { public *; }
--keep public class ohi.andre.consolelauncher.commands.tuixt.raw.* { public *; }
--keep public class ohi.andre.consolelauncher.managers.notifications.NotificationService
--keep public class ohi.andre.consolelauncher.managers.notifications.KeeperService
--keep public class ohi.andre.consolelauncher.managers.options.**
--keep class ohi.andre.consolelauncher.tuils.libsuperuser.**
--keep class ohi.andre.consolelauncher.ui.suggestions.HideSuggestionViewValues
--keep public class it.andreuzzi.comparestring2.**
+# Add project specific ProGuard rules here.
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
 
--dontwarn ohi.andre.consolelauncher.commands.main.raw.**
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
 
--dontwarn javax.annotation.**
--dontwarn javax.inject.**
--dontwarn sun.misc.Unsafe
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
 
--dontwarn okhttp3.**
--dontwarn okio.**
--dontwarn javax.annotation.**
--keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
-
--dontwarn org.htmlcleaner.**
--dontwarn com.jayway.jsonpath.**
--dontwarn org.slf4j.**
-
--dontwarn org.jdom2.**
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
