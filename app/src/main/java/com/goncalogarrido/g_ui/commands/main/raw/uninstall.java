@@ -14,12 +14,12 @@ public class uninstall implements CommandAbstraction {
     @Override
     public String exec(ExecutePack pack) {
         MainPack info = (MainPack) pack;
+        String pkg = info.getLaunchInfo().componentName.getPackageName();
 
-        String packageName = info.getLaunchInfo().componentName.getPackageName();
-
-        Uri packageURI = Uri.parse("package:" + packageName);
-        Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
-        info.context.startActivity(uninstallIntent);
+        Uri uri = Uri.parse("package:" + pkg);
+        Intent intent = new Intent(Intent.ACTION_DELETE, uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        info.context.getApplicationContext().startActivity(intent);
 
         return Tuils.EMPTYSTRING;
     }
@@ -31,7 +31,7 @@ public class uninstall implements CommandAbstraction {
 
     @Override
     public int[] argType() {
-        return new int[]{CommandAbstraction.VISIBLE_PACKAGE};
+        return new int[]{ CommandAbstraction.VISIBLE_PACKAGE };
     }
 
     @Override
@@ -50,5 +50,4 @@ public class uninstall implements CommandAbstraction {
         MainPack info = (MainPack) pack;
         return info.res.getString(R.string.output_appnotfound);
     }
-
 }
