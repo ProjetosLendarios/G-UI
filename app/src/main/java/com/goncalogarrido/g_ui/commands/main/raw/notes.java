@@ -1,6 +1,8 @@
 package com.goncalogarrido.g_ui.commands.main.raw;
 
 import android.content.Intent;
+import android.net.Uri;
+
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 
@@ -10,6 +12,8 @@ import com.goncalogarrido.g_ui.commands.ExecutePack;
 import com.goncalogarrido.g_ui.commands.main.MainPack;
 import com.goncalogarrido.g_ui.commands.main.specific.ParamCommand;
 import com.goncalogarrido.g_ui.managers.NotesManager;
+import com.goncalogarrido.g_ui.managers.xml.classes.XMLPrefsSave;
+import com.goncalogarrido.g_ui.managers.xml.options.Apps;
 import com.goncalogarrido.g_ui.tuils.Tuils;
 
 /**
@@ -120,6 +124,51 @@ public class notes extends ParamCommand {
 
                 LocalBroadcastManager.getInstance(pack.context).sendBroadcast(i);
                 return null;
+            }
+        },
+        define_web_notes {
+            @Override
+            public int[] args() {
+                // recebe a URL como texto simples
+                return new int[] { CommandAbstraction.PLAIN_TEXT };
+            }
+
+            @Override
+            public String exec(ExecutePack pack) {
+                String url = pack.getString().trim();
+                try {
+                    // assume que em Apps há uma opção "web_notes_url"
+                    XMLPrefsSave save = Apps.valueOf("web_notes_url");
+                    save.parent().write(save, url);
+                    return "Web notes URL defined: " + url;
+                } catch (Exception e) {
+                    return "Error saving URL.";
+                }
+            }
+        },
+
+        web_notes {
+            @Override
+            public int[] args() {
+                // sem argumentos
+                return new int[0];
+            }
+
+            @Override
+            public String exec(ExecutePack pack) {
+                try {
+                    XMLPrefsSave save = Apps.valueOf("web_notes_url");
+                    String url = "";
+                    if (url.isEmpty()) {
+                        return "No web notes URL defined.";
+                    }
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    pack.context.startActivity(intent);
+                    return null;
+                } catch (Exception e) {
+                    return "No web notes URL defined.";
+                }
             }
         },
         tutorial {

@@ -439,5 +439,7 @@
         \n$ open [pathToFile]
     </string>
     <string name="sem_acesso_ao_cart_o_sd_o_app_ficar_em_modo_limitado">Sem acesso ao cartão SD, o app ficará em modo limitado.</string>
+    <string name="help_rule3"><![CDATA[rule3 <a> <b> <c> — computes x for the simple “rule of three”:\n        a --- b  \n        c --- x]]></string>
+    <string name="output_invalidnumber" />
 
 </resources>
